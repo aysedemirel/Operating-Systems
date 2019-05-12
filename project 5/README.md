@@ -33,6 +33,6 @@ The read part of the first and second pipes is closed. By writing to the second 
 
 The write portion of the second pipe is closed. The value of the second pipe is read and assigned to the variable. Print is performed.For Second pipe, read part is also closed.
 
-![image]()
-![image]()
+![image](https://github.com/aysedemirel/Operating-Systems/blob/master/project%205/img/1.png)
+![image](https://github.com/aysedemirel/Operating-Systems/blob/master/project%205/img/2.png)
 
