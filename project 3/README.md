@@ -46,3 +46,7 @@ can be mixed. For example, second thread can start work before first thread. So 
 be printed before first context. And also read line will be counted.After the loop, the value will
 assign in struct's readline variable. And mutex will finish.So other threads can work on the output
 document. The thread will return struct variable to the main function.
+
+![image]()
+![image]()
+![image]()
