@@ -1,9 +1,9 @@
 # In main function:
 # Variables:
---threadNumber -> number of thread (Taking from console)
---start -> start line
---numlines -> document’s line
---resultThread -> to print the return value from thread in main
+--threadNumber -> number of thread (Taking from console) </br>
+--start -> start line </br>
+--numlines -> document’s line </br>
+--resultThread -> to print the return value from thread in main </br>
 --td[] -> There is a thread array to create multiple threads. And the array is struct structure. The
 structure has two variables: startline, readline. The startline variable is used to indicate start reading
 line for each thread. Readline is used to return the line value from thread to the main function.
@@ -41,7 +41,7 @@ string.In for loop, the lines will be printed in the new file according to start
 also read line will be counted. After the loop, the value will assign in struct's readline variable.The
 thread will return struct variable to the main function.
 
-![image]()
-![image]()
-![image]()
-![image]()
+![image](https://github.com/aysedemirel/Operating-Systems/blob/master/project%204/img/1.png)
+![image](https://github.com/aysedemirel/Operating-Systems/blob/master/project%204/img/2.png)
+![image](https://github.com/aysedemirel/Operating-Systems/blob/master/project%204/img/3.png)
+![image](https://github.com/aysedemirel/Operating-Systems/blob/master/project%204/img/4.png)
