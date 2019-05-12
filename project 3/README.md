@@ -47,6 +47,6 @@ be printed before first context. And also read line will be counted.After the lo
 assign in struct's readline variable. And mutex will finish.So other threads can work on the output
 document. The thread will return struct variable to the main function.
 
-![image]()
-![image]()
-![image]()
+![image](https://github.com/aysedemirel/Operating-Systems/blob/master/project%203/img/1.png)
+![image](https://github.com/aysedemirel/Operating-Systems/blob/master/project%203/img/2.png)
+![image](https://github.com/aysedemirel/Operating-Systems/blob/master/project%203/img/3.png)
