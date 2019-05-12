@@ -1,9 +1,9 @@
 # In main function:
 # Variables:
---threadNumber -> number of thread (Taking from console)
---start -> start line
---numlines -> document’s line
---resultThread -> to print the return value from thread in main
+--threadNumber -> number of thread (Taking from console) </br>
+--start -> start line </br>
+--numlines -> document’s line </br>
+--resultThread -> to print the return value from thread in main </br>
 --td[] -> There is a thread array to create multiple threads. And the array is struct structure. The
 structure has two variables: startline, readline. The startline variable is used to indicate start reading
 line for each thread. Readline is used to return the line value from thread to the main function.
