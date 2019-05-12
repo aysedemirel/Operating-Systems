@@ -8,7 +8,7 @@
 structure has two variables: startline, readline. The startline variable is used to indicate start reading
 line for each thread. Readline is used to return the line value from thread to the main function.
     
-    Firstly, the line number is counted by using countLine() function. Then thread number is taken
+   Firstly, the line number is counted by using countLine() function. Then thread number is taken
 from the command line. We need to calculate threadLine(it is a global variable and its type is float).
 ThreadLine is using to divide lines for each thread.When line number is divided by thread number,
 sometimes it will be a float, and the float number should round up. So ceil() function was used for
