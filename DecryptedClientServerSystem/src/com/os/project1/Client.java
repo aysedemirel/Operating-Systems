@@ -7,6 +7,17 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+/**
+ * Client sends encrypted messages and receives decrypted messages from server <br>
+ * 
+ * q is an exit keyword, it will close the connection
+ * 
+ * Before starting the client, start the server-side. Otherwise client will close itself.
+ * 
+ * Encrypting method: Caesar cipher
+ * 
+ * @author aysedemirel
+ */
 public class Client {
   private static final String HOST = "127.0.0.1"; // localhost address
   private static final int PORT = 8081;

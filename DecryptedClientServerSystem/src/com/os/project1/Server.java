@@ -8,7 +8,17 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server extends Thread {
+/**
+ * Server receives encrypted messages from client, decrypted the messages <br>
+ * and sends the decrypted version of the messages as response <br>
+ * 
+ * q is an exit keyword, it will close the connection
+ * 
+ * Decrypting method: Caesar cipher
+ * 
+ * @author aysedemirel
+ */
+public class Server {
   public static final int PORT_NUMBER = 8081;
   private static final String EXIT_CODE = "q";
   private static final char END_LINE = '\0';
@@ -32,7 +42,7 @@ public class Server extends Thread {
     initServerSocket();
     System.out.println(
         "New client connected from ".toUpperCase() + socket.getInetAddress().getHostAddress());
-    start();
+    startCommunication();
   }
 
   private void initServerSocket() {
@@ -56,60 +66,59 @@ public class Server extends Thread {
     }
   }
 
-  public void run() {
-    initConnection();
-    try {
-      String hiddenInput = bufferReader.readLine();
-      while (hiddenInput != null) {
-        System.out.println("SERVER-DATA: " + hiddenInput);
-        char[] hidden = hiddenInput.toCharArray();
-        int index = 0;
-        char controlChar = hidden[index];
-        if (hiddenInput.equalsIgnoreCase(EXIT_CODE)) {
-          System.exit(0);
-          break;
-        }
-        while (controlChar != END_LINE) {
-          if (isUpperAZ(controlChar)) { // A-Z
-            hidden[index] = (char) (hidden[index] - DECRYPTED_KEY);
-            if (isOverUpperZ(hidden[index])) {
-              hidden[index] = (char) ((hidden[index] % Z_ASCII) + A_ASCII);
-            }
-          }
-          if (isUnderUpperA(hidden[index])) {
-            hidden[index] = (char) (hidden[index] + CHARACTER_NUMBER);
-          }
-          if (isLowerAZ(controlChar)) {
-            hidden[index] = (char) (hidden[index] - DECRYPTED_KEY);
-            if (isOverLowerZ(hidden[index])) {
-              hidden[index] = (char) ((hidden[index] % z_ASCII) + a_ASCII);
-            }
-          }
-          if (isNotLetter(hidden[index])) {
-            // a-z out of a-z,we are adding 26(number of the a-z group) to return the a-z
-            hidden[index] = (char) (hidden[index] + CHARACTER_NUMBER);
-          }
-          if (isSpaceChar(controlChar)) {
-            hidden[index] = controlChar;
-          }
-          index++;
-          if (index < hidden.length) {
-            controlChar = hidden[index];
-          } else {
-            break;
-          }
-        }
-        hiddenInput = String.valueOf(hidden);
-        System.out.println("server-decrypted data: ".toUpperCase() + hiddenInput);
-        hiddenInput += NEW_LINE;
-        out.write(hiddenInput.getBytes());
-      }
+  public void startCommunication() {
 
-    } catch (IOException ex) {
-      System.err.println("Unable to write to out stream");
-    } finally {
-      closeConnection();
-    }
+    new Thread(new Runnable() {
+      @Override
+      public void run() {
+        initConnection();
+        try {
+          String hiddenInput;
+          while ((hiddenInput = bufferReader.readLine()) != null) {
+            System.out.println("SERVER-DATA: " + hiddenInput);
+            char[] hidden = hiddenInput.toCharArray();
+            int index = 0;
+            char controlChar = hidden[index];
+            if (hiddenInput.equalsIgnoreCase(EXIT_CODE)) {
+              System.exit(0);
+              break;
+            }
+            while (controlChar != END_LINE) {
+              if (isUpperAZ(controlChar)) {
+                hidden[index] = upperAzOperation(hidden[index]);
+              }
+              if (isUnderUpperA(hidden[index])) {
+                hidden[index] = (char) (hidden[index] + CHARACTER_NUMBER);
+              }
+              if (isLowerAZ(controlChar)) {
+                hidden[index] = lowerAzOperation(hidden[index]);
+              }
+              if (isNotLetter(hidden[index])) {
+                // a-z out of a-z,add 26(number of the a-z group) to return the a-z
+                hidden[index] = (char) (hidden[index] + CHARACTER_NUMBER);
+              }
+              if (isSpaceChar(controlChar)) {
+                hidden[index] = controlChar;
+              }
+              index++;
+              if (index < hidden.length) {
+                controlChar = hidden[index];
+              } else {
+                break;
+              }
+            }
+            hiddenInput = String.valueOf(hidden);
+            System.out.println("server-decrypted data: ".toUpperCase() + hiddenInput);
+            hiddenInput += NEW_LINE;
+            out.write(hiddenInput.getBytes());
+          }
+        } catch (IOException ex) {
+          System.err.println("Unable to write to out stream");
+        } finally {
+          closeConnection();
+        }
+      }
+    }).start();;
   }
 
   private void initConnection() {
@@ -120,6 +129,28 @@ public class Server extends Thread {
     } catch (IOException e) {
       System.err.println("Unable to get streams from client");
     }
+  }
+
+  /** @param [A-Z] */
+  private char upperAzOperation(char operationChar) {
+    char result = (char) (operationChar - DECRYPTED_KEY);
+    if (isOverUpperZ(result)) {
+      result = (char) ((result % Z_ASCII) + A_ASCII);
+    }
+    return result;
+  }
+
+  /** @param [a-z] */
+  private char lowerAzOperation(char operationChar) {
+    char result = (char) (operationChar - DECRYPTED_KEY);
+    if (isOverLowerZ(result)) {
+      /**
+       * If result is over z(for example "{"-->123), it is not letter so convert it <br>
+       * 123%122=1 1+97=98-->b
+       */
+      result = (char) ((result % z_ASCII) + a_ASCII);
+    }
+    return result;
   }
 
   private boolean isUpperAZ(char ch) {
