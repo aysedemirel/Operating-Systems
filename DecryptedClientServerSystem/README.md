@@ -1,5 +1,5 @@
 ## SUMMARY
-The project is a client-server system. The message from the client to the server is encrypted. The server-side receives the encrypted message and decrypting it with the *Ceaser Cipher* method. If you don't know what is *Ceaser Cipher* method check the [link](https://www.geeksforgeeks.org/caesar-cipher-in-cryptography/).
+The project is a client-server system. The message from the client to the server is encrypted. The server-side receives the encrypted message and decrypting it with the *Ceaser Cipher* method. If you don't know what is *Ceaser Cipher* method check the [link](https://www.geeksforgeeks.org/caesar-cipher-in-cryptography/). And [ASCII](https://simple.wikipedia.org/wiki/ASCII) information can be useful.
 
 ## ATTENTION
 If you are working on your computer only, you can run it with "127.0.0.1". If you want to run the client and the server on a separate computer, you should arrange the IP and check the port information.
